@@ -23,7 +23,8 @@ logo()
     "-r", "--rule", help="Rules folder need to be checked",
     type=click.Path(exists=True, file_okay=False, dir_okay=True), required=True,
 )
-def entry_point(summary, detail, apk, rule):
+@click.option("-t", "--threshold", help="Greater than confidence threshold", type=click.IntRange(1, 5))
+def entry_point(summary, detail, apk, rule, threshold):
     """Quark is an Obfuscation-Neglect Android Malware Scoring System"""
 
     if summary:
@@ -41,7 +42,7 @@ def entry_point(summary, detail, apk, rule):
             # Run the checker
             data.run(rule_checker)
 
-            data.show_summary_report(rule_checker)
+            data.show_summary_report(rule_checker, threshold)
 
         w = Weight(data.score_sum, data.weight_sum)
         print_warning(w.calculate())

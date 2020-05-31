@@ -319,7 +319,7 @@ class XRule:
             # Exit if the level 4 stage check fails.
             return
 
-    def show_summary_report(self, rule_obj):
+    def show_summary_report(self, rule_obj, threshold):
         """
         Show the summary report.
 
@@ -332,11 +332,21 @@ class XRule:
         weight = rule_obj.get_score(conf)
         score = rule_obj.yscore
 
-        self.tb.add_row([
-            green(rule_obj.crime), yellow(
-                confidence,
-            ), score, red(weight),
-        ])
+        if threshold:
+
+            if conf >= int(threshold):
+                self.tb.add_row([
+                    green(rule_obj.crime), yellow(
+                        confidence,
+                    ), score, red(weight),
+                ])
+        else:
+
+            self.tb.add_row([
+                green(rule_obj.crime), yellow(
+                    confidence,
+                ), score, red(weight),
+            ])
 
         # add the weight
         self.weight_sum += weight
