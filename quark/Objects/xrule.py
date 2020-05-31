@@ -320,7 +320,7 @@ class XRule:
 
         if threshold:
 
-            if conf >= int(threshold):
+            if conf >= threshold:
                 self.tb.add_row([
                     green(rule_obj.crime), yellow(
                         confidence,
