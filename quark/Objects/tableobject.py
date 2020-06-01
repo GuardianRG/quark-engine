@@ -25,7 +25,11 @@ class TableObject:
         :param var_obj: instance of VariableObject
         :return: None
         """
-        self.hash_table[index].append(var_obj)
+        try:
+            self.hash_table[index].append(var_obj)
+        except IndexError:
+            # TODO: log the error here
+            pass
 
     def get_obj_list(self, index):
         """
